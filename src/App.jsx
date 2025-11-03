@@ -24,8 +24,7 @@ const GlobeIcon = ({ className }) => (
 // --- 아이콘 끝 ---
 
 
-// --- 번역 데이터 ---
-// 3단계: 여기의 'Ship Supply'와 '선용품 공급'의 img 값을 1단계에서 추가한 파일명으로 변경하세요.
+// --- 번역 데이터 (Business 항목 수정됨) ---
 const translations = {
   EN: {
     nav: { about: "About", business: "Business", service: "Service", contact: "Contact" },
@@ -54,8 +53,9 @@ const translations = {
       title: "Our Business",
       items: [
         { title: "Crew Management", desc: "Providing reliable and professional crew solutions for global shipping lines.", img: "1579547621706-1a9c79d5b4d0" },
-        // --- 3단계 (예시): "/ship-supply.jpg" 처럼 수정하세요 ---
-        { title: "Ship Supply", desc: "Providing essential supplies, provisions, and parts for vessels.", img: "1506629082955-511b1aa562c8" }, 
+        // --- 수정된 부분 ---
+        { title: "Ship Supply", desc: "Providing essential supplies, provisions, and parts for vessels.", img: "/ship-supply.png" }, 
+        // ---
         { title: "Hotel Accommodation", desc: "Comfortable and convenient hotel accommodation services for crews and partners.", img: "1566075582-0268601L32s" },
         { title: "Medical Support", desc: "One-stop medical support for crews, including hospital liaison, transport, and administrative assistance.", img: "1576091187-6a2069b2a09c" }
       ],
@@ -104,8 +104,9 @@ const translations = {
       title: "사업 분야",
       items: [
         { title: "선원 관리", desc: "글로벌 선사를 위한 신뢰할 수 있는 전문 선원 솔루션을 제공합니다.", img: "1579547621706-1a9c79d5b4d0" },
-        // --- 3단계 (예시): "/ship-supply.jpg" 처럼 수정하세요 ---
-        { title: "선용품 공급", desc: "선박 운항에 필수적인 소모품, 식자재, 부품 등을 공급합니다.", img: "1506629082955-511b1aa562c8" },
+        // --- 수정된 부분 ---
+        { title: "선용품 공급", desc: "선박 운항에 필수적인 소모품, 식자재, 부품 등을 공급합니다.", img: "/ship-supply.png" },
+        // ---
         { title: "호텔 숙박", desc: "선원 및 파트너를 위한 편안하고 편리한 호텔 숙박 서비스입니다.", img: "1566075582-0268601L32s" },
         { title: "의료 지원", desc: "병원 연계, 이송, 의료 서류 행정 지원을 포함한 원스톱 의료 편의 서비스입니다.", img: "1576091187-6a2069b2a09c" }
       ],
@@ -409,7 +410,7 @@ export default function App() {
         </nav>
       </div>
 
-      {/* --- 페이지 나머지 컨텐츠 (이전과 동일) --- */}
+      {/* --- 페이지 나머지 컨텐츠 --- */}
       <section
         className="relative h-screen bg-cover bg-center flex items-center justify-center text-white"
         style={{ backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=60')` }}
@@ -429,17 +430,14 @@ export default function App() {
         </div>
       </section>
 
-      {/* --- BUSINESS SECTION (수정됨) --- */}
+      {/* --- BUSINESS SECTION (이전과 동일) --- */}
       <section id="business" className="py-20 pt-36 md:pt-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">{t.business.title}</h2>
-          {/* 4개 항목이 3 + 1 로 표시됨 */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {t.business.items.map((b, i) => (
               <div key={i} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
-                {/* --- 수정된 이미지 로직 --- 
-                    b.img가 '/'로 시작하면 로컬 파일로, 아니면 Unsplash ID로 처리합니다.
-                */}
+                {/* --- 수정된 이미지 로직 (이전과 동일) --- */}
                 <img 
                   src={b.img.startsWith('/') ? b.img : `https://images.unsplash.com/photo-${b.img}?auto=format&fit=crop&w=800&q=60`} 
                   alt={b.title} 
@@ -455,7 +453,6 @@ export default function App() {
           </div>
         </div>
       </section>
-      {/* --- */}
 
       <section id="service" className="bg-gray-50 py-20 pt-36 md:pt-20">
         <div className="max-w-6xl mx-auto px-6">
