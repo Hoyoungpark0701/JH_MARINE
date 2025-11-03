@@ -6,21 +6,31 @@ export default function App() {
       {/* HEADER */}
       <header className="fixed top-0 left-0 w-full bg-white shadow z-50">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-          {/* --- 수정된 부분 --- */}
-          <a href="#" className="flex items-center gap-3">
-            <img src="/jhmarine-logo.png" alt="JH MARINE.Inc Logo" className="h-10 w-auto object-contain" />
-            <span className="font-bold text-xl tracking-wide">JH MARINE.Inc</span>
-          </a>
+          
+          {/* --- 수정된 부분 1: Left Zone (Logo) --- */}
+          <div className="flex-1 flex justify-start">
+            <a href="#" className="flex items-center">
+              <img src="/jhmarine-logo.png" alt="JH MARINE.Inc Logo" className="h-10 w-auto object-contain" />
+              {/* "JH MARINE.Inc" 텍스트 삭제됨 */}
+            </a>
+          </div>
           {/* --- 여기까지 수정 --- */}
+
+          {/* --- 수정된 부분 2: Center Zone (Nav) --- */}
           <nav className="hidden md:flex gap-8 text-sm font-medium">
             <a href="#about" className="hover:text-blue-600 transition">About</a>
             <a href="#business" className="hover:text-blue-600 transition">Business</a>
             <a href="#service" className="hover:text-blue-600 transition">Service</a>
             <a href="#contact" className="hover:text-blue-600 transition">Contact</a>
           </nav>
-          <div className="hidden md:flex items-center text-sm font-semibold text-blue-600">
+          {/* --- 여기까지 수정 --- */}
+
+          {/* --- 수정된 부분 3: Right Zone (Tel) --- */}
+          <div className="flex-1 hidden md:flex justify-end items-center text-sm font-semibold text-blue-600">
             Tel: <a href="tel:+821064308197" className="ml-1">+82-10-6430-8197</a>
           </div>
+          {/* --- 여기까지 수정 --- */}
+
         </div>
       </header>
 
