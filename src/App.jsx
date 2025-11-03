@@ -24,7 +24,7 @@ const GlobeIcon = ({ className }) => (
 // --- 아이콘 끝 ---
 
 
-// --- 번역 데이터 (이전과 동일) ---
+// --- 번역 데이터 (Business 항목 이미지 경로 모두 수정) ---
 const translations = {
   EN: {
     nav: { about: "About", business: "Business", service: "Service", contact: "Contact" },
@@ -52,10 +52,12 @@ const translations = {
     business: {
       title: "Our Business",
       items: [
-        { title: "Crew Management", desc: "Providing reliable and professional crew solutions for global shipping lines.", img: "1579547621706-1a9c79d5b4d0" },
+        // --- 수정된 부분 ---
+        { title: "Crew Management", desc: "Providing reliable and professional crew solutions for global shipping lines.", img: "/crew-management.png" },
         { title: "Ship Supply", desc: "Providing essential supplies, provisions, and parts for vessels.", img: "/ship-supply.png" }, 
-        { title: "Hotel Accommodation", desc: "Comfortable and convenient hotel accommodation services for crews and partners.", img: "1566075582-0268601L32s" },
-        { title: "Medical Support", desc: "One-stop medical support for crews, including hospital liaison, transport, and administrative assistance.", img: "1576091187-6a2069b2a09c" }
+        { title: "Hotel Accommodation", desc: "Comfortable and convenient hotel accommodation services for crews and partners.", img: "/hotel-accommodation.png" },
+        { title: "Medical Support", desc: "One-stop medical support for crews, including hospital liaison, transport, and administrative assistance.", img: "/medical-support.png" }
+        // ---
       ],
     },
     service: {
@@ -101,10 +103,12 @@ const translations = {
     business: {
       title: "사업 분야",
       items: [
-        { title: "선원 관리", desc: "글로벌 선사를 위한 신뢰할 수 있는 전문 선원 솔루션을 제공합니다.", img: "1579547621706-1a9c79d5b4d0" },
+        // --- 수정된 부분 ---
+        { title: "선원 관리", desc: "글로벌 선사를 위한 신뢰할 수 있는 전문 선원 솔루션을 제공합니다.", img: "/crew-management.png" },
         { title: "선용품 공급", desc: "선박 운항에 필수적인 소모품, 식자재, 부품 등을 공급합니다.", img: "/ship-supply.png" },
-        { title: "호텔 숙박", desc: "선원 및 파트너를 위한 편안하고 편리한 호텔 숙박 서비스입니다.", img: "1566075582-0268601L32s" },
-        { title: "의료 지원", desc: "병원 연계, 이송, 의료 서류 행정 지원을 포함한 원스톱 의료 편의 서비스입니다.", img: "1576091187-6a2069b2a09c" }
+        { title: "호텔 숙박", desc: "선원 및 파트너를 위한 편안하고 편리한 호텔 숙박 서비스입니다.", img: "/hotel-accommodation.png" },
+        { title: "의료 지원", desc: "병원 연계, 이송, 의료 서류 행정 지원을 포함한 원스톱 의료 편의 서비스입니다.", img: "/medical-support.png" }
+        // ---
       ],
     },
     service: {
@@ -406,36 +410,27 @@ export default function App() {
         </nav>
       </div>
 
-      {/* --- HERO SECTION (수정됨) --- */}
+      {/* --- HERO SECTION (이전과 동일) --- */}
       <section className="relative h-screen flex items-center justify-center text-white overflow-hidden">
-        {/* Video Background */}
         <video
           autoPlay
           loop
           muted
-          playsInline // 모바일 브라우저 자동 재생을 위해 중요
+          playsInline
           className="absolute z-0 w-auto min-w-full min-h-full max-w-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         >
-          {/* 'public' 폴더에 넣은 비디오 파일의 정확한 이름을 여기에 입력하세요.
-            (예: ship-sailing.mp4)
-          */}
           <source src="/ship-sailing.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-
-        {/* Overlay */}
         <div className="bg-black/40 absolute inset-0 z-10"></div>
-
-        {/* Text Content */}
         <div className="relative z-20 text-center px-4">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">{t.hero.title}</h1>
           <p className="text-lg md:text-xl mb-8">{t.hero.subtitle}</p>
           <a href="#business" className="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-full text-white font-semibold transition">{t.hero.button}</a>
         </div>
       </section>
-      {/* --- HERO SECTION 끝 --- */}
 
-
+      {/* --- ABOUT SECTION (이전과 동일) --- */}
       <section id="about" className="py-20 bg-gray-50 pt-36 md:pt-20">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">{t.about.title}</h2>
@@ -465,6 +460,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* --- SERVICE SECTION (이전과 동일) --- */}
       <section id="service" className="bg-gray-50 py-20 pt-36 md:pt-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">{t.service.title}</h2>
@@ -480,6 +476,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* --- CONTACT SECTION (이전과 동일) --- */}
       <section id="contact" className="py-20 pt-36 md:pt-20">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">{t.contact.title}</h2>
@@ -492,6 +489,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* --- FOOTER (이전과 동일) --- */}
       <footer className="bg-blue-900 text-white text-center py-6">
         <p>{t.footer.text.replace('{year}', new Date().getFullYear())}</p>
       </footer>
