@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; // useState, useEffect 임포트 추가
+import React, { useState, useEffect } from "react";
 
 // 메뉴 데이터 구조 (이전과 동일)
 const navItems = [
@@ -37,80 +37,90 @@ const navItems = [
   },
 ];
 
+// --- 햄버거 아이콘 (SVG) ---
+const MenuIcon = ({ className }) => (
+  <svg className={className} stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <line x1="3" y1="12" x2="21" y2="12"></line>
+    <line x1="3" y1="6" x2="21" y2="6"></line>
+    <line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+);
+
+// --- 닫기 아이콘 (SVG) ---
+const CloseIcon = ({ className }) => (
+  <svg className={className} stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <line x1="18" y1="6" x2="6" y2="18"></line>
+    <line x1="6" y1="6" x2="18" y2="18"></line>
+  </svg>
+);
+
 
 export default function App() {
 
-  // --- 스크롤 감지 기능 추가 ---
+  // --- 스크롤 감지 기능 (이전과 동일) ---
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  // --- 모바일 메뉴 상태 추가 ---
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+      // 모바일 메뉴가 열려있을 때는 스크롤 감지 중단
+      if (isMobileMenuOpen) return;
 
-      // 스크롤을 100px 이상 내렸을 때
+      const currentScrollY = window.scrollY;
       if (currentScrollY > 100) {
-        // 아래로 스크롤
         if (currentScrollY > lastScrollY) {
           setShowHeader(false);
-        } 
-        // 위로 스크롤
-        else {
+        } else {
           setShowHeader(true);
         }
-      } 
-      // 스크롤이 최상단 근처일 때
-      else {
+      } else {
         setShowHeader(true);
       }
-      
-      // 마지막 스크롤 위치 저장
       setLastScrollY(currentScrollY);
     };
-
-    // 스크롤 이벤트 리스너 등록
+    
     window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY, isMobileMenuOpen]); // isMobileMenuOpen 의존성 추가
 
-    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [lastScrollY]);
-  // --- 여기까지 ---
+  // 모바일 메뉴가 열릴 때 body 스크롤 방지
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isMobileMenuOpen]);
 
 
   return (
     <div className="min-h-screen font-sans text-gray-800">
       
-      {/* --- 수정된 HEADER ---
-          - showHeader 상태에 따라 헤더가 위/아래로 움직이도록 클래스 추가
-          - `transform`, `transition-transform`, `duration-300`
-          - showHeader가 true이면 'translate-y-0' (보임)
-          - showHeader가 false이면 '-translate-y-full' (숨김)
-      */}
+      {/* --- 수정된 HEADER --- */}
       <header className={`fixed top-0 left-0 w-full bg-white shadow z-50 
                            transform transition-transform duration-300 
                            ${showHeader ? 'translate-y-0' : '-translate-y-full'}`}
       >
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-6">
+        <div className="max-w-7xl mx-auto flex justify-between items-center px-6 h-16"> {/* 높이 고정 (h-16) */}
           
+          {/* 로고 */}
           <div className="flex-1 flex justify-start">
             <a href="#" className="flex items-center">
               <img src="/jhmarine-logo.png" alt="JH MARINE.Inc Logo" className="h-10 w-auto object-contain" />
             </a>
           </div>
 
-          {/* 드롭다운 메뉴 (이전과 동일) */}
+          {/* 데스크톱 메뉴 (이전과 동일, md:flex로 모바일에선 숨김) */}
           <nav className="hidden md:flex gap-8 text-sm font-medium">
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
                 <a href={item.href} className="hover:text-blue-600 transition py-6 inline-block">
                   {item.name}
                 </a>
-                
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2
-                                hidden group-hover:block 
-                                transition-all duration-300">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 hidden group-hover:block transition-all duration-300">
                   <div className="bg-white shadow-lg rounded-md overflow-hidden w-48 border border-gray-100">
                     {item.subItems.map((subItem) => (
                       <a 
@@ -127,20 +137,87 @@ export default function App() {
             ))}
           </nav>
 
+          {/* 데스크톱 전화번호 (md:flex로 모바일에선 숨김) */}
           <div className="flex-1 hidden md:flex justify-end items-center text-sm font-semibold text-blue-600">
             Tel: <a href="tel:+821064308197" className="ml-1">+82-10-6430-8197</a>
+          </div>
+
+          {/* --- 모바일 햄버거 버튼 추가 --- */}
+          <div className="md:hidden flex-1 flex justify-end">
+            <button 
+              onClick={() => setIsMobileMenuOpen(true)} 
+              aria-label="Open menu"
+            >
+              <MenuIcon className="h-6 w-6 text-gray-800" />
+            </button>
           </div>
 
         </div>
       </header>
 
-      {/* --- 페이지 나머지 컨텐츠 (이전과 동일) --- */}
+      {/* --- 모바일 메뉴 패널 추가 --- */}
+      <div 
+        className={`fixed inset-0 bg-white z-[60] transform 
+                    ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}
+                    transition-transform duration-300 ease-in-out md:hidden`}
+      >
+        {/* 모바일 메뉴 헤더 (로고, 닫기 버튼) */}
+        <div className="flex justify-between items-center px-6 h-16 border-b border-gray-200">
+          <a href="#" onClick={() => setIsMobileMenuOpen(false)}>
+            <img src="/jhmarine-logo.png" alt="JH MARINE.Inc Logo" className="h-10 w-auto object-contain" />
+          </a>
+          <button 
+            onClick={() => setIsMobileMenuOpen(false)} 
+            aria-label="Close menu"
+          >
+            <CloseIcon className="h-6 w-6 text-gray-800" />
+          </button>
+        </div>
+        
+        {/* 모바일 메뉴 링크 */}
+        <nav className="flex flex-col p-6 space-y-4">
+          {navItems.map((item) => (
+            <div key={item.name} className="border-b border-gray-100 pb-2">
+              <a 
+                href={item.href} 
+                className="text-lg font-semibold text-gray-800"
+                onClick={() => setIsMobileMenuOpen(false)} // 링크 클릭 시 메뉴 닫기
+              >
+                {item.name}
+              </a>
+              <div className="pl-4 mt-2 flex flex-col space-y-2">
+                {item.subItems.map((subItem) => (
+                  <a 
+                    key={subItem.name} 
+                    href={subItem.href} 
+                    className="text-gray-600"
+                    onClick={() => setIsMobileMenuOpen(false)} // 링크 클릭 시 메뉴 닫기
+                  >
+                    {subItem.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+          {/* 모바일 메뉴에 전화번호 추가 */}
+          <div className="pt-6 text-sm font-semibold text-blue-600">
+            Tel: <a href="tel:+821064308197" className="ml-1">+82-10-6430-8197</a>
+          </div>
+        </nav>
+      </div>
 
-      {/* HERO SECTION */}
+
+      {/* --- 페이지 나머지 컨텐츠 --- */}
+
+      {/* HERO SECTION (pt-16 추가: 고정 헤더 높이만큼 패딩) */}
       <section
         className="relative h-screen bg-cover bg-center flex items-center justify-center text-white"
         style={{ backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=60')` }}
       >
+        {/* pt-16을 Hero 섹션 자체에 주면 배경 이미지가 밀리므로, 내부 컨텐츠에 주는 것이 좋습니다. */}
+        {/* 하지만 Hero는 h-screen이므로 헤더가 덮는 것을 의도한 것일 수 있습니다. */}
+        {/* 여기서는 스크롤 시작점 #about이 헤더에 가려지지 않도록 수정합니다. */}
+        
         <div className="bg-black/40 absolute inset-0"></div>
         <div className="relative z-10 text-center px-4">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Global Marine Solutions</h1>
@@ -149,8 +226,8 @@ export default function App() {
         </div>
       </section>
 
-      {/* ABOUT SECTION */}
-      <section id="about" className="py-20 bg-gray-50">
+      {/* ABOUT SECTION (pt-16 추가: 헤더에 가려지지 않도록) */}
+      <section id="about" className="py-20 bg-gray-50 pt-36 md:pt-20"> {/* pt-16 (h-16) + py-20 */}
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">About Us</h2>
           <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed">
@@ -161,11 +238,12 @@ export default function App() {
         </div>
       </section>
 
-      {/* BUSINESS SECTION */}
-      <section id="business" className="py-20">
+      {/* BUSINESS SECTION (pt-16 추가 및 반응형 그리드 수정) */}
+      <section id="business" className="py-20 pt-36 md:pt-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">Our Business</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          {/* --- 수정된 그리드 --- */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[{
               title: 'Crew Management',
               desc: 'Providing reliable and professional crew solutions for global shipping lines.',
@@ -191,11 +269,12 @@ export default function App() {
         </div>
       </section>
 
-      {/* SERVICE SECTION */}
-      <section id="service" className="bg-gray-50 py-20">
+      {/* SERVICE SECTION (pt-16 추가 및 반응형 그리드 수정) */}
+      <section id="service" className="bg-gray-50 py-20 pt-36 md:pt-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
-          <div className="grid md:grid-cols-4 gap-8 text-center">
+          {/* --- 수정된 그리드 --- */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             {["Vessel Agency", "Technical Support", "Crew Change", "Marine Supply"].map((service, idx) => (
               <div key={idx} className="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
                 <div className="text-4xl mb-3">⚓</div>
@@ -207,8 +286,8 @@ export default function App() {
         </div>
       </section>
 
-      {/* CONTACT SECTION */}
-      <section id="contact" className="py-20">
+      {/* CONTACT SECTION (pt-16 추가) */}
+      <section id="contact" className="py-20 pt-36 md:pt-20">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">Contact Us</h2>
           <p className="text-gray-600 mb-8">For inquiries, partnerships, or service information, reach out to us anytime.</p>
