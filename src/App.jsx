@@ -6,10 +6,12 @@ export default function App() {
       {/* HEADER */}
       <header className="fixed top-0 left-0 w-full bg-white shadow z-50">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-          <div className="flex items-center gap-3">
+          {/* --- 수정된 부분 --- */}
+          <a href="#" className="flex items-center gap-3">
             <img src="/jhmarine-logo.png" alt="JH MARINE.Inc Logo" className="h-10 w-auto object-contain" />
             <span className="font-bold text-xl tracking-wide">JH MARINE.Inc</span>
-          </div>
+          </a>
+          {/* --- 여기까지 수정 --- */}
           <nav className="hidden md:flex gap-8 text-sm font-medium">
             <a href="#about" className="hover:text-blue-600 transition">About</a>
             <a href="#business" className="hover:text-blue-600 transition">Business</a>
