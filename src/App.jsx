@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-// --- navItems 데이터 확장 ---
-// (기존 subItems는 모바일 메뉴용으로 유지, megaMenuContent는 데스크톱용으로 추가)
+// --- navItems 데이터 (이전과 동일) ---
 const navItems = [
   { 
     name: "About", 
@@ -9,7 +8,6 @@ const navItems = [
     subItems: [
       { name: "About Us", href: "#about" }
     ],
-    // 데스크톱 메가 메뉴에 표시될 내용
     megaMenuContent: (
       <div className="grid grid-cols-4 gap-6">
         <div>
@@ -27,7 +25,6 @@ const navItems = [
       { name: "Ship Maintenance", href: "#business" },
       { name: "Port Logistics", href: "#business" },
     ],
-    // 데스크톱 메가 메뉴에 표시될 내용
     megaMenuContent: (
       <div className="grid grid-cols-4 gap-6">
         <div>
@@ -54,7 +51,6 @@ const navItems = [
       { name: "Crew Change", href: "#service" },
       { name: "Marine Supply", href: "#service" },
     ],
-    // 데스크톱 메가 메뉴에 표시될 내용
     megaMenuContent: (
       <div className="grid grid-cols-4 gap-6">
         <div>
@@ -82,7 +78,6 @@ const navItems = [
     subItems: [
       { name: "Contact Us", href: "#contact" }
     ],
-    // 데스크톱 메가 메뉴에 표시될 내용
     megaMenuContent: (
       <div className="grid grid-cols-4 gap-6">
         <div>
@@ -115,37 +110,46 @@ const CloseIcon = ({ className }) => (
 
 export default function App() {
 
-  // --- 기존 상태 ---
+  // --- 기존 상태 (이전과 동일) ---
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  // --- 메가 메뉴 상태 추가 ---
   const [activeMenu, setActiveMenu] = useState(null);
 
-  // --- 기존 useEffect (스크롤 감지) ---
+  // --- 수정된 useEffect (스크롤 감지) ---
   useEffect(() => {
     const handleScroll = () => {
-      if (isMobileMenuOpen || activeMenu) return; // 모바일 메뉴 또는 메가 메뉴가 열려있으면 스크롤 감지 중단
+      // 모바일 메뉴가 열려있으면 스크롤 감지 중단 (메가 메뉴는 스크롤 허용)
+      if (isMobileMenuOpen) return; 
 
       const currentScrollY = window.scrollY;
+
+      // 스크롤 방향에 따라 헤더를 숨기거나 표시한다.
       if (currentScrollY > 100) {
+        // 아래로 스크롤
         if (currentScrollY > lastScrollY) {
           setShowHeader(false);
-        } else {
+        } 
+        // 위로 스크롤
+        else {
           setShowHeader(true);
         }
-      } else {
+      } 
+      // 스크롤이 최상단 근처일 때
+      else {
         setShowHeader(true);
       }
+      
       setLastScrollY(currentScrollY);
     };
     
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY, isMobileMenuOpen, activeMenu]); // activeMenu 의존성 추가
+  }, [lastScrollY, isMobileMenuOpen]); // activeMenu 의존성 제거
+  // --- 스크롤 감지 useEffect 끝 ---
 
-  // --- 기존 useEffect (모바일 스크롤 방지) ---
+
+  // --- 기존 useEffect (모바일 스크롤 방지 - 이전과 동일) ---
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -158,15 +162,12 @@ export default function App() {
   return (
     <div className="min-h-screen font-sans text-gray-800">
       
-      {/* --- 수정된 HEADER --- 
-          - onMouseLeave 이벤트 추가
-          - 메가 메뉴 패널 추가
-      */}
+      {/* --- HEADER (이전과 동일) --- */}
       <header 
         className={`fixed top-0 left-0 w-full bg-white shadow z-50 
                            transform transition-transform duration-300 
                            ${showHeader ? 'translate-y-0' : '-translate-y-full'}`}
-        onMouseLeave={() => setActiveMenu(null)} // 마우스가 헤더 전체를 떠나면 메뉴 닫기
+        onMouseLeave={() => setActiveMenu(null)}
       >
         {/* 헤더 상단 (로고, 메뉴, 버튼) */}
         <div className="max-w-7xl mx-auto flex justify-between items-center px-6 h-16">
@@ -177,22 +178,17 @@ export default function App() {
             </a>
           </div>
 
-          {/* --- 수정된 데스크톱 메뉴 ---
-              - group/group-hover 로직 제거
-              - onMouseEnter로 activeMenu 상태 제어
-              - 하단에 활성 막대(active bar) 추가
-          */}
+          {/* 데스크톱 메뉴 */}
           <nav className="hidden md:flex gap-8 text-sm font-medium h-full">
             {navItems.map((item) => (
               <div 
                 key={item.name} 
                 className="relative flex items-center h-full"
-                onMouseEnter={() => setActiveMenu(item.name)} // 마우스 올리면 activeMenu 설정
+                onMouseEnter={() => setActiveMenu(item.name)}
               >
                 <a href={item.href} className="hover:text-blue-600 transition">
                   {item.name}
                 </a>
-                {/* 활성 카테고리 표시줄 (SK hynix의 주황색 막대 역할) */}
                 <div 
                   className={`absolute bottom-0 left-0 w-full h-0.5 bg-blue-600
                               transition-transform duration-300 origin-center
@@ -201,7 +197,6 @@ export default function App() {
               </div>
             ))}
           </nav>
-          {/* --- 데스크톱 메뉴 끝 --- */}
 
           <div className="flex-1 hidden md:flex justify-end items-center text-sm font-semibold text-blue-600">
             Tel: <a href="tel:+821064308197" className="ml-1">+82-10-6430-8197</a>
@@ -214,20 +209,17 @@ export default function App() {
           </div>
         </div>
         
-        {/* --- 새로운 데스크톱 메가 메뉴 패널 --- */}
+        {/* 데스크톱 메가 메뉴 패널 */}
         <div 
           className={`absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-200
                       transition-all duration-300 ease-in-out
                       ${activeMenu ? 'opacity-100 visible h-auto' : 'opacity-0 invisible h-0'}`}
-          style={{ paddingTop: activeMenu ? '2rem' : '0', paddingBottom: activeMenu ? '2rem' : '0' }} //
+          style={{ paddingTop: activeMenu ? '2rem' : '0', paddingBottom: activeMenu ? '2rem' : '0' }}
         >
           <div className="max-w-7xl mx-auto px-6">
-            {/* activeMenu에 해당하는 megaMenuContent를 렌더링 */}
             {navItems.find(item => item.name === activeMenu)?.megaMenuContent}
           </div>
         </div>
-        {/* --- 메가 메뉴 패널 끝 --- */}
-
       </header>
 
       {/* --- 모바일 메뉴 패널 (이전과 동일) --- */}
@@ -255,7 +247,6 @@ export default function App() {
               >
                 {item.name}
               </a>
-              {/* 모바일은 기존 subItems를 사용 (데이터 구조를 유지했기 때문에 수정 불필요) */}
               <div className="pl-4 mt-2 flex flex-col space-y-2">
                 {item.subItems.map((subItem) => (
                   <a 
@@ -281,7 +272,7 @@ export default function App() {
       {/* HERO SECTION */}
       <section
         className="relative h-screen bg-cover bg-center flex items-center justify-center text-white"
-        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit-crop&w=2000&q=60')` }}
+        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=60')` }}
       >
         <div className="bg-black/40 absolute inset-0"></div>
         <div className="relative z-10 text-center px-4">
@@ -311,15 +302,15 @@ export default function App() {
             {[{
               title: 'Crew Management',
               desc: 'Providing reliable and professional crew solutions for global shipping lines.',
-              img: 'https://images.unsplash.com/photo-1579547621706-1a9c79d5b4d0?auto=format&fit-crop&w=800&q=60'
+              img: 'https://images.unsplash.com/photo-1579547621706-1a9c79d5b4d0?auto=format&fit=crop&w=800&q=60'
             }, {
               title: 'Ship Maintenance',
               desc: 'Ensuring vessel safety and performance through expert technical services.',
-              img: 'https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?auto=format&fit-crop&w=800&q=60'
+              img: 'https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?auto=format&fit=crop&w=800&q=60'
             }, {
               title: 'Port Logistics',
               desc: 'Efficient port handling and logistics coordination for seamless operations.',
-              img: 'https://images.unsplash.com/photo-1506629082955-511b1aa562c8?auto=format&fit-crop&w=800&q=60'
+              img: 'https://images.unsplash.com/photo-1506629082955-511b1aa562c8?auto=format&fit=crop&w=800&q=60'
             }].map((b, i) => (
               <div key={i} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
                 <img src={b.img} alt={b.title} className="h-48 w-full object-cover" />
@@ -331,7 +322,7 @@ export default function App() {
             ))}
           </div>
         </div>
-      </section>
+      </section
 
       {/* SERVICE SECTION */}
       <section id="service" className="bg-gray-50 py-20 pt-36 md:pt-20">
