@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-// --- 아이콘 (Menu, Close - 이전과 동일) ---
+// --- 아이콘 (이전과 동일) ---
 const MenuIcon = ({ className }) => (
   <svg className={className} stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
     <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -14,8 +14,6 @@ const CloseIcon = ({ className }) => (
     <line x1="6" y1="6" x2="18" y2="18"></line>
   </svg>
 );
-
-// --- 지구본 아이콘 (새로 추가) ---
 const GlobeIcon = ({ className }) => (
   <svg className={className} fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <circle cx="12" cy="12" r="10"></circle>
@@ -23,17 +21,13 @@ const GlobeIcon = ({ className }) => (
     <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
   </svg>
 );
+// --- 아이콘 끝 ---
 
 
-// --- 번역 데이터 (새로 추가) ---
+// --- 번역 데이터 (이전과 동일) ---
 const translations = {
   EN: {
-    nav: {
-      about: "About",
-      business: "Business",
-      service: "Service",
-      contact: "Contact",
-    },
+    nav: { about: "About", business: "Business", service: "Service", contact: "Contact" },
     megaMenu: {
       about: { title: "About Us", desc: "Learn about our company, mission, and values." },
       business: [
@@ -49,11 +43,7 @@ const translations = {
       ],
       contact: { title: "Contact Us", desc: "Get in touch with our team." },
     },
-    hero: {
-      title: "Global Marine Solutions",
-      subtitle: "Connecting the world through reliable maritime service",
-      button: "Explore More",
-    },
+    hero: { title: "Global Marine Solutions", subtitle: "Connecting the world through reliable maritime service", button: "Explore More" },
     about: {
       title: "About Us",
       text: "JH MARINE.Inc is a leading maritime service provider specializing in crew management, ship maintenance, and port logistics. With a commitment to safety, efficiency, and sustainability, we continue to navigate global trade with excellence.",
@@ -78,25 +68,13 @@ const translations = {
     contact: {
       title: "Contact Us",
       text: "For inquiries, partnerships, or service information, reach out to us anytime.",
-      email: "Email",
-      tel: "Tel",
-      address: "Address",
-      addressValue: "Busan, Republic of Korea"
+      email: "Email", tel: "Tel", address: "Address", addressValue: "Busan, Republic of Korea"
     },
-    footer: {
-      text: "© {year} JH MARINE.Inc. All Rights Reserved.",
-    },
-    mobile: {
-      tel: "Tel: +82-10-6430-8197" // 모바일 메뉴에는 전화번호 유지
-    }
+    footer: { text: "© {year} JH MARINE.Inc. All Rights Reserved." },
+    mobile: { tel: "Tel: +82-10-6430-8197" }
   },
   KO: {
-    nav: {
-      about: "회사소개",
-      business: "사업분야",
-      service: "서비스",
-      contact: "연락처",
-    },
+    nav: { about: "회사소개", business: "사업분야", service: "서비스", contact: "연락처" },
     megaMenu: {
       about: { title: "회사소개", desc: "저희 회사의 미션과 가치에 대해 알아보세요." },
       business: [
@@ -112,11 +90,7 @@ const translations = {
       ],
       contact: { title: "연락처", desc: "저희 팀에 문의하세요." },
     },
-    hero: {
-      title: "글로벌 해양 솔루션",
-      subtitle: "신뢰할 수 있는 해상 서비스로 세계를 연결합니다",
-      button: "더 알아보기",
-    },
+    hero: { title: "글로벌 해양 솔루션", subtitle: "신뢰할 수 있는 해상 서비스로 세계를 연결합니다", button: "더 알아보기" },
     about: {
       title: "회사소개",
       text: "JH MARINE.Inc는 선원 관리, 선박 유지보수, 항만 물류를 전문으로 하는 선도적인 해양 서비스 제공업체입니다. 안전, 효율성, 지속가능성에 대한 약속으로 저희는 계속해서 글로벌 무역을 탁월하게 탐색하고 있습니다.",
@@ -141,30 +115,20 @@ const translations = {
     contact: {
       title: "연락처",
       text: "문의사항, 파트너십 또는 서비스 정보가 필요하시면 언제든지 연락주십시오.",
-      email: "이메일",
-      tel: "전화",
-      address: "주소",
-      addressValue: "대한민국, 부산"
+      email: "이메일", tel: "전화", address: "주소", addressValue: "대한민국, 부산"
     },
-    footer: {
-      text: "© {year} JH MARINE.Inc. All Rights Reserved.",
-    },
-    mobile: {
-      tel: "전화: +82-10-6430-8197"
-    }
+    footer: { text: "© {year} JH MARINE.Inc. All Rights Reserved." },
+    mobile: { tel: "전화: +82-10-6430-8197" }
   },
 };
 
-// --- navItems 데이터를 동적으로 생성하는 함수 ---
+// --- getNavItems 함수 (이전과 동일) ---
 const getNavItems = (lang) => {
   const t = translations[lang].nav;
   const mega = translations[lang].megaMenu;
-
   return [
     { 
-      name: t.about, 
-      href: "#about", 
-      subItems: [{ name: mega.about.title, href: "#about" }],
+      name: t.about, href: "#about", subItems: [{ name: mega.about.title, href: "#about" }],
       megaMenuContent: (
         <div className="grid grid-cols-4 gap-6">
           <div>
@@ -175,9 +139,7 @@ const getNavItems = (lang) => {
       )
     },
     { 
-      name: t.business, 
-      href: "#business", 
-      subItems: mega.business.map(item => ({ name: item.title, href: "#business" })),
+      name: t.business, href: "#business", subItems: mega.business.map(item => ({ name: item.title, href: "#business" })),
       megaMenuContent: (
         <div className="grid grid-cols-4 gap-6">
           {mega.business.map(item => (
@@ -190,9 +152,7 @@ const getNavItems = (lang) => {
       )
     },
     { 
-      name: t.service, 
-      href: "#service", 
-      subItems: mega.service.map(item => ({ name: item.title, href: "#service" })),
+      name: t.service, href: "#service", subItems: mega.service.map(item => ({ name: item.title, href: "#service" })),
       megaMenuContent: (
         <div className="grid grid-cols-4 gap-6">
           {mega.service.map(item => (
@@ -205,9 +165,7 @@ const getNavItems = (lang) => {
       )
     },
     { 
-      name: t.contact, 
-      href: "#contact", 
-      subItems: [{ name: mega.contact.title, href: "#contact" }],
+      name: t.contact, href: "#contact", subItems: [{ name: mega.contact.title, href: "#contact" }],
       megaMenuContent: (
         <div className="grid grid-cols-4 gap-6">
           <div>
@@ -223,26 +181,23 @@ const getNavItems = (lang) => {
 
 export default function App() {
 
-  // --- 상태 (언어 lang 추가) ---
+  // --- 상태 (isLangDropdownOpen 추가) ---
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
-  const [lang, setLang] = useState('EN'); // 'EN' 또는 'KO'
+  const [lang, setLang] = useState('EN');
+  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false); // 언어 드롭다운 상태
 
-  // --- 번역 관련 변수 ---
+  // --- 번역 관련 변수 (이전과 동일) ---
   const navItems = getNavItems(lang);
   const t = translations[lang];
-  const toggleLang = () => {
-    setLang(lang === 'EN' ? 'KO' : 'EN');
-  };
 
   // --- 스크롤 감지 useEffect (이전과 동일) ---
   useEffect(() => {
     const handleScroll = () => {
       if (isMobileMenuOpen) return; 
       const currentScrollY = window.scrollY;
-
       if (currentScrollY > 100) {
         if (currentScrollY > lastScrollY) {
           setShowHeader(false);
@@ -255,7 +210,6 @@ export default function App() {
       }
       setLastScrollY(currentScrollY);
     };
-    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, isMobileMenuOpen]);
@@ -268,6 +222,18 @@ export default function App() {
       document.body.style.overflow = 'unset';
     }
   }, [isMobileMenuOpen]);
+  
+  // --- 공통 함수: 언어 선택 ---
+  const selectLang = (selectedLang) => {
+    setLang(selectedLang);
+    setIsLangDropdownOpen(false);
+  };
+  
+  // --- 공통 함수: 모바일 메뉴 닫기 (언어 드롭다운도 닫기) ---
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+    setIsLangDropdownOpen(false);
+  };
 
 
   return (
@@ -278,23 +244,27 @@ export default function App() {
         className={`fixed top-0 left-0 w-full bg-white shadow z-50 
                            transform transition-transform duration-300 
                            ${showHeader ? 'translate-y-0' : '-translate-y-full'}`}
-        onMouseLeave={() => setActiveMenu(null)}
+        onMouseLeave={() => setActiveMenu(null)} // 헤더 영역을 벗어나면 메가 메뉴 닫기
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center px-6 h-16">
           
-          <div className="flex-1 flex justify-start">
+          {/* --- 수정: 로고 영역 (메가 메뉴 닫기 기능 추가) --- */}
+          <div 
+            className="flex-1 flex justify-start"
+            onMouseEnter={() => setActiveMenu(null)} // 로고에 마우스 올리면 메가 메뉴 닫기
+          >
             <a href="#" className="flex items-center">
               <img src="/jhmarine-logo.png" alt="JH MARINE.Inc Logo" className="h-10 w-auto object-contain" />
             </a>
           </div>
 
-          {/* --- 수정된 데스크톱 메뉴 (폰트 크기/굵기) --- */}
-          <nav className="hidden md:flex gap-8 text-base font-bold h-full"> {/* text-sm font-medium -> text-base font-bold */}
+          {/* 데스크톱 메뉴 (폰트 수정됨, 이전과 동일) */}
+          <nav className="hidden md:flex gap-8 text-base font-bold h-full">
             {navItems.map((item) => (
               <div 
                 key={item.name} 
                 className="relative flex items-center h-full"
-                onMouseEnter={() => setActiveMenu(item.name)}
+                onMouseEnter={() => setActiveMenu(item.name)} // 카테고리에 마우스 올리면 메가 메뉴 열기
               >
                 <a href={item.href} className="hover:text-blue-600 transition">
                   {item.name}
@@ -308,19 +278,41 @@ export default function App() {
             ))}
           </nav>
 
-          {/* --- 수정된 우측 영역 (언어 선택) --- */}
-          <div className="flex-1 hidden md:flex justify-end items-center">
+          {/* --- 수정된 우측 영역 (언어 드롭다운) --- */}
+          <div 
+            className="flex-1 hidden md:flex justify-end items-center relative"
+            onMouseEnter={() => setActiveMenu(null)} // 이 영역에 마우스 올리면 메가 메뉴 닫기
+          >
             <button 
-              onClick={toggleLang} 
+              onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)} // 언어 드롭다운 토글
               className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 hover:text-blue-600 transition"
               aria-label="Change language"
             >
               <GlobeIcon className="h-5 w-5" />
-              <span>{lang}</span>
             </button>
+
+            {/* 언어 드롭다운 패널 */}
+            {isLangDropdownOpen && (
+              <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-100 z-10">
+                <a 
+                  href="#"
+                  onClick={(e) => { e.preventDefault(); selectLang('KO'); }}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  한국어
+                </a>
+                <a 
+                  href="#"
+                  onClick={(e) => { e.preventDefault(); selectLang('EN'); }}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  English
+                </a>
+              </div>
+            )}
           </div>
 
-          {/* 모바일 햄버거 버튼 (이전과 동일) */}
+          {/* 모바일 햄버거 버튼 */}
           <div className="md:hidden flex-1 flex justify-end">
             <button onClick={() => setIsMobileMenuOpen(true)} aria-label="Open menu">
               <MenuIcon className="h-6 w-6 text-gray-800" />
@@ -341,17 +333,17 @@ export default function App() {
         </div>
       </header>
 
-      {/* --- 모바일 메뉴 패널 (언어 선택 추가) --- */}
+      {/* --- 모바일 메뉴 패널 (수정됨) --- */}
       <div 
         className={`fixed inset-0 bg-white z-[60] transform 
                     ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}
                     transition-transform duration-300 ease-in-out md:hidden`}
       >
         <div className="flex justify-between items-center px-6 h-16 border-b border-gray-200">
-          <a href="#" onClick={() => setIsMobileMenuOpen(false)}>
+          <a href="#" onClick={closeMobileMenu}> {/* 수정: 닫기 함수 호출 */}
             <img src="/jhmarine-logo.png" alt="JH MARINE.Inc Logo" className="h-10 w-auto object-contain" />
           </a>
-          <button onClick={() => setIsMobileMenuOpen(false)} aria-label="Close menu">
+          <button onClick={closeMobileMenu} aria-label="Close menu"> {/* 수정: 닫기 함수 호출 */}
             <CloseIcon className="h-6 w-6 text-gray-800" />
           </button>
         </div>
@@ -362,7 +354,7 @@ export default function App() {
               <a 
                 href={item.href} 
                 className="text-lg font-semibold text-gray-800"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={closeMobileMenu} // 수정: 닫기 함수 호출
               >
                 {item.name}
               </a>
@@ -372,7 +364,7 @@ export default function App() {
                     key={subItem.name} 
                     href={subItem.href} 
                     className="text-gray-600"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={closeMobileMenu} // 수정: 닫기 함수 호출
                   >
                     {subItem.name}
                   </a>
@@ -380,27 +372,45 @@ export default function App() {
               </div>
             </div>
           ))}
-          {/* 모바일 전화번호 (번역 적용) */}
+          
           <div className="pt-6 text-sm font-semibold text-blue-600">
             <a href="tel:+821064308197">{t.mobile.tel}</a>
           </div>
-          {/* 모바일 언어 선택 */}
-          <div className="pt-4">
+
+          {/* --- 수정된 모바일 언어 선택 --- */}
+          <div className="pt-4 relative">
             <button 
-              onClick={toggleLang} 
+              onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)} 
               className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 hover:text-blue-600 transition"
               aria-label="Change language"
             >
               <GlobeIcon className="h-5 w-5" />
-              <span>{lang}</span>
+              <span>{lang === 'EN' ? 'English' : '한국어'}</span>
             </button>
+            
+            {isLangDropdownOpen && (
+              <div className="absolute left-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-100 z-10">
+                <a 
+                  href="#"
+                  onClick={(e) => { e.preventDefault(); selectLang('KO'); }}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  한국어
+                </a>
+                <a 
+                  href="#"
+                  onClick={(e) => { e.preventDefault(); selectLang('EN'); }}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  English
+                </a>
+              </div>
+            )}
           </div>
         </nav>
       </div>
 
-      {/* --- 페이지 나머지 컨텐츠 (모두 번역 적용) --- */}
-
-      {/* HERO SECTION */}
+      {/* --- 페이지 나머지 컨텐츠 (번역 적용, 이전과 동일) --- */}
       <section
         className="relative h-screen bg-cover bg-center flex items-center justify-center text-white"
         style={{ backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=60')` }}
@@ -413,7 +423,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ABOUT SECTION */}
       <section id="about" className="py-20 bg-gray-50 pt-36 md:pt-20">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">{t.about.title}</h2>
@@ -421,7 +430,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* BUSINESS SECTION */}
       <section id="business" className="py-20 pt-36 md:pt-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">{t.business.title}</h2>
@@ -439,7 +447,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* SERVICE SECTION */}
       <section id="service" className="bg-gray-50 py-20 pt-36 md:pt-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">{t.service.title}</h2>
@@ -455,7 +462,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* CONTACT SECTION */}
       <section id="contact" className="py-20 pt-36 md:pt-20">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">{t.contact.title}</h2>
@@ -468,7 +474,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="bg-blue-900 text-white text-center py-6">
         <p>{t.footer.text.replace('{year}', new Date().getFullYear())}</p>
       </footer>
