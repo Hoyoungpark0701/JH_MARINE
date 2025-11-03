@@ -24,7 +24,7 @@ const GlobeIcon = ({ className }) => (
 // --- 아이콘 끝 ---
 
 
-// --- 번역 데이터 (Business 항목 이미지 경로 모두 수정) ---
+// --- 번역 데이터 (Contact 주소 수정됨) ---
 const translations = {
   EN: {
     nav: { about: "About", business: "Business", service: "Service", contact: "Contact" },
@@ -52,12 +52,10 @@ const translations = {
     business: {
       title: "Our Business",
       items: [
-        // --- 수정된 부분 ---
         { title: "Crew Management", desc: "Providing reliable and professional crew solutions for global shipping lines.", img: "/crew-management.png" },
         { title: "Ship Supply", desc: "Providing essential supplies, provisions, and parts for vessels.", img: "/ship-supply.png" }, 
         { title: "Hotel Accommodation", desc: "Comfortable and convenient hotel accommodation services for crews and partners.", img: "/hotel-accommodation.png" },
         { title: "Medical Support", desc: "One-stop medical support for crews, including hospital liaison, transport, and administrative assistance.", img: "/medical-support.png" }
-        // ---
       ],
     },
     service: {
@@ -72,7 +70,9 @@ const translations = {
     contact: {
       title: "Contact Us",
       text: "For inquiries, partnerships, or service information, reach out to us anytime.",
-      email: "Email", tel: "Tel", address: "Address", addressValue: "Busan, Republic of Korea"
+      // --- 수정된 부분 ---
+      email: "Email", tel: "Tel", address: "Address", addressValue: "8, Samsan-Ro 392 Beon-Gil, Nam-Gu, Ulsan, 44716 Korea"
+      // ---
     },
     footer: { text: "© {year} JH MARINE.Inc. All Rights Reserved." },
     mobile: { tel: "Tel: +82-10-6430-8197" }
@@ -103,12 +103,10 @@ const translations = {
     business: {
       title: "사업 분야",
       items: [
-        // --- 수정된 부분 ---
         { title: "선원 관리", desc: "글로벌 선사를 위한 신뢰할 수 있는 전문 선원 솔루션을 제공합니다.", img: "/crew-management.png" },
         { title: "선용품 공급", desc: "선박 운항에 필수적인 소모품, 식자재, 부품 등을 공급합니다.", img: "/ship-supply.png" },
         { title: "호텔 숙박", desc: "선원 및 파트너를 위한 편안하고 편리한 호텔 숙박 서비스입니다.", img: "/hotel-accommodation.png" },
         { title: "의료 지원", desc: "병원 연계, 이송, 의료 서류 행정 지원을 포함한 원스톱 의료 편의 서비스입니다.", img: "/medical-support.png" }
-        // ---
       ],
     },
     service: {
@@ -123,7 +121,9 @@ const translations = {
     contact: {
       title: "연락처",
       text: "문의사항, 파트너십 또는 서비스 정보가 필요하시면 언제든지 연락주십시오.",
-      email: "이메일", tel: "전화", address: "주소", addressValue: "대한민국, 부산"
+      // --- 수정된 부분 ---
+      email: "이메일", tel: "전화", address: "주소", addressValue: "대한민국 울산광역시 남구 삼산로392번길 8 (우) 44716"
+      // ---
     },
     footer: { text: "© {year} JH MARINE.Inc. All Rights Reserved." },
     mobile: { tel: "전화: +82-10-6430-8197" }
@@ -476,7 +476,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* --- CONTACT SECTION (이전과 동일) --- */}
+      {/* --- CONTACT SECTION (수정됨) --- */}
       <section id="contact" className="py-20 pt-36 md:pt-20">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">{t.contact.title}</h2>
@@ -484,10 +484,12 @@ export default function App() {
           <div className="space-y-3 text-gray-700">
             <p>{t.contact.email}: <a href="mailto:jhmarine@jhmarine.kr" className="text-blue-600">jhmarine@jhmarine.kr</a></p>
             <p>{t.contact.tel}: <a href="tel:+821064308197" className="text-blue-600">+82-10-6430-8197</a></p>
+            {/* 수정된 주소값이 t.contact.addressValue를 통해 반영됨 */}
             <p>{t.contact.address}: {t.contact.addressValue}</p>
           </div>
         </div>
       </section>
+      {/* --- */}
 
       {/* --- FOOTER (이전과 동일) --- */}
       <footer className="bg-blue-900 text-white text-center py-6">
