@@ -1,38 +1,140 @@
-import React from "react";
+import React, { useState, useEffect } from "react"; // useState, useEffect 임포트 추가
+
+// 메뉴 데이터 구조 (이전과 동일)
+const navItems = [
+  { 
+    name: "About", 
+    href: "#about", 
+    subItems: [
+      { name: "About Us", href: "#about" },
+    ] 
+  },
+  { 
+    name: "Business", 
+    href: "#business", 
+    subItems: [
+      { name: "Crew Management", href: "#business" },
+      { name: "Ship Maintenance", href: "#business" },
+      { name: "Port Logistics", href: "#business" },
+    ] 
+  },
+  { 
+    name: "Service", 
+    href: "#service", 
+    subItems: [
+      { name: "Vessel Agency", href: "#service" },
+      { name: "Technical Support", href: "#service" },
+      { name: "Crew Change", href: "#service" },
+      { name: "Marine Supply", href: "#service" },
+    ] 
+  },
+  { 
+    name: "Contact", 
+    href: "#contact", 
+    subItems: [
+      { name: "Contact Us", href: "#contact" },
+    ] 
+  },
+];
+
 
 export default function App() {
+
+  // --- 스크롤 감지 기능 추가 ---
+  const [showHeader, setShowHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // 스크롤을 100px 이상 내렸을 때
+      if (currentScrollY > 100) {
+        // 아래로 스크롤
+        if (currentScrollY > lastScrollY) {
+          setShowHeader(false);
+        } 
+        // 위로 스크롤
+        else {
+          setShowHeader(true);
+        }
+      } 
+      // 스크롤이 최상단 근처일 때
+      else {
+        setShowHeader(true);
+      }
+      
+      // 마지막 스크롤 위치 저장
+      setLastScrollY(currentScrollY);
+    };
+
+    // 스크롤 이벤트 리스너 등록
+    window.addEventListener("scroll", handleScroll);
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
+  // --- 여기까지 ---
+
+
   return (
     <div className="min-h-screen font-sans text-gray-800">
-      {/* HEADER */}
-      <header className="fixed top-0 left-0 w-full bg-white shadow z-50">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+      
+      {/* --- 수정된 HEADER ---
+          - showHeader 상태에 따라 헤더가 위/아래로 움직이도록 클래스 추가
+          - `transform`, `transition-transform`, `duration-300`
+          - showHeader가 true이면 'translate-y-0' (보임)
+          - showHeader가 false이면 '-translate-y-full' (숨김)
+      */}
+      <header className={`fixed top-0 left-0 w-full bg-white shadow z-50 
+                           transform transition-transform duration-300 
+                           ${showHeader ? 'translate-y-0' : '-translate-y-full'}`}
+      >
+        <div className="max-w-7xl mx-auto flex justify-between items-center px-6">
           
-          {/* --- 수정된 부분 1: Left Zone (Logo) --- */}
           <div className="flex-1 flex justify-start">
             <a href="#" className="flex items-center">
               <img src="/jhmarine-logo.png" alt="JH MARINE.Inc Logo" className="h-10 w-auto object-contain" />
-              {/* "JH MARINE.Inc" 텍스트 삭제됨 */}
             </a>
           </div>
-          {/* --- 여기까지 수정 --- */}
 
-          {/* --- 수정된 부분 2: Center Zone (Nav) --- */}
+          {/* 드롭다운 메뉴 (이전과 동일) */}
           <nav className="hidden md:flex gap-8 text-sm font-medium">
-            <a href="#about" className="hover:text-blue-600 transition">About</a>
-            <a href="#business" className="hover:text-blue-600 transition">Business</a>
-            <a href="#service" className="hover:text-blue-600 transition">Service</a>
-            <a href="#contact" className="hover:text-blue-600 transition">Contact</a>
+            {navItems.map((item) => (
+              <div key={item.name} className="relative group">
+                <a href={item.href} className="hover:text-blue-600 transition py-6 inline-block">
+                  {item.name}
+                </a>
+                
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2
+                                hidden group-hover:block 
+                                transition-all duration-300">
+                  <div className="bg-white shadow-lg rounded-md overflow-hidden w-48 border border-gray-100">
+                    {item.subItems.map((subItem) => (
+                      <a 
+                        key={subItem.name} 
+                        href={subItem.href} 
+                        className="block px-5 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 whitespace-nowrap"
+                      >
+                        {subItem.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
           </nav>
-          {/* --- 여기까지 수정 --- */}
 
-          {/* --- 수정된 부분 3: Right Zone (Tel) --- */}
           <div className="flex-1 hidden md:flex justify-end items-center text-sm font-semibold text-blue-600">
             Tel: <a href="tel:+821064308197" className="ml-1">+82-10-6430-8197</a>
           </div>
-          {/* --- 여기까지 수정 --- */}
 
         </div>
       </header>
+
+      {/* --- 페이지 나머지 컨텐츠 (이전과 동일) --- */}
 
       {/* HERO SECTION */}
       <section
