@@ -346,7 +346,7 @@ export default function App() {
           <div className="space-y-3 text-gray-700">
             <p>Email: <a href="mailto:jhmarine@jhmarine.kr" className="text-blue-600">jhmarine@jhmarine.kr</a></p>
             <p>Tel: <a href="tel:+821064308197" className="text-blue-600">+82-10-6430-8197</a></p>
-            <p>Address: Busan, Republic of Korea</p>
+            <p>Address: 8, Samsan-Ro 392 Beon-Gil, Nam-Gu, Ulsan, 44716 Korea</p>
           </div>
         </div>
       </section>
