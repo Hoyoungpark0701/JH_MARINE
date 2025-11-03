@@ -145,7 +145,7 @@ export default function App() {
     
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY, isMobileMenuOpen]); // activeMenu 의존성 제거
+  }, [lastScrollY, isMobileMenuOpen]); // activeMenu 의존성 제거됨
   // --- 스크롤 감지 useEffect 끝 ---
 
 
@@ -322,7 +322,7 @@ export default function App() {
             ))}
           </div>
         </div>
-      </section
+      </section>
 
       {/* SERVICE SECTION */}
       <section id="service" className="bg-gray-50 py-20 pt-36 md:pt-20">
