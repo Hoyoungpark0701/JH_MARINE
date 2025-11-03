@@ -24,21 +24,19 @@ const GlobeIcon = ({ className }) => (
 // --- 아이콘 끝 ---
 
 
-// --- 번역 데이터 (Business 항목 수정됨) ---
+// --- 번역 데이터 ---
+// 3단계: 여기의 'Ship Supply'와 '선용품 공급'의 img 값을 1단계에서 추가한 파일명으로 변경하세요.
 const translations = {
   EN: {
     nav: { about: "About", business: "Business", service: "Service", contact: "Contact" },
     megaMenu: {
       about: { title: "About Us", desc: "Learn about our company, mission, and values." },
-      // --- 수정된 부분 ---
       business: [
         { title: "Crew Management", desc: "Reliable and professional crew solutions." },
-        { title: "Ship Supply", desc: "Providing essential vessel supplies." }, // <-- 수정됨
+        { title: "Ship Supply", desc: "Providing essential vessel supplies." },
         { title: "Hotel Accommodation", desc: "Convenient accommodation services." },
         { title: "Medical Support", desc: "Medical coordination and support." }
-        // Ship Maintenance 삭제됨
       ],
-      // ---
       service: [
         { title: "Vessel Agency", desc: "Professional agency services." },
         { title: "Technical Support", desc: "24/7 technical assistance." },
@@ -52,18 +50,16 @@ const translations = {
       title: "About Us",
       text: "JH MARINE.Inc is a leading maritime service provider specializing in crew management, ship maintenance, and port logistics. With a commitment to safety, efficiency, and sustainability, we continue to navigate global trade with excellence.",
     },
-    // --- 수정된 부분 ---
     business: {
       title: "Our Business",
       items: [
         { title: "Crew Management", desc: "Providing reliable and professional crew solutions for global shipping lines.", img: "1579547621706-1a9c79d5b4d0" },
-        { title: "Ship Supply", desc: "Providing essential supplies, provisions, and parts for vessels.", img: "1506629082955-511b1aa562c8" }, // <-- 수정됨
+        // --- 3단계 (예시): "/ship-supply.jpg" 처럼 수정하세요 ---
+        { title: "Ship Supply", desc: "Providing essential supplies, provisions, and parts for vessels.", img: "1506629082955-511b1aa562c8" }, 
         { title: "Hotel Accommodation", desc: "Comfortable and convenient hotel accommodation services for crews and partners.", img: "1566075582-0268601L32s" },
         { title: "Medical Support", desc: "One-stop medical support for crews, including hospital liaison, transport, and administrative assistance.", img: "1576091187-6a2069b2a09c" }
-        // Ship Maintenance 삭제됨
       ],
     },
-    // ---
     service: {
       title: "Our Services",
       items: [
@@ -85,15 +81,12 @@ const translations = {
     nav: { about: "회사소개", business: "사업분야", service: "서비스", contact: "연락처" },
     megaMenu: {
       about: { title: "회사소개", desc: "저희 회사의 미션과 가치에 대해 알아보세요." },
-      // --- 수정된 부분 ---
       business: [
         { title: "선원 관리", desc: "신뢰할 수 있는 전문 선원 솔루션." },
-        { title: "선용품 공급", desc: "필수 선박 물품 공급." }, // <-- 수정됨
+        { title: "선용품 공급", desc: "필수 선박 물품 공급." },
         { title: "호텔 숙박", desc: "편리한 숙박 서비스." },
         { title: "의료 지원", desc: "의료 행정 및 이송 지원." }
-        // 선박 유지보수 삭제됨
       ],
-      // ---
       service: [
         { title: "선박 대리점", desc: "전문적인 대리점 서비스." },
         { title: "기술 지원", desc: "연중무휴 기술 지원." },
@@ -107,18 +100,16 @@ const translations = {
       title: "회사소개",
       text: "JH MARINE.Inc는 선원 관리, 선박 유지보수, 항만 물류를 전문으로 하는 선도적인 해양 서비스 제공업체입니다. 안전, 효율성, 지속가능성에 대한 약속으로 저희는 계속해서 글로벌 무역을 탁월하게 탐색하고 있습니다.",
     },
-    // --- 수정된 부분 ---
     business: {
       title: "사업 분야",
       items: [
         { title: "선원 관리", desc: "글로벌 선사를 위한 신뢰할 수 있는 전문 선원 솔루션을 제공합니다.", img: "1579547621706-1a9c79d5b4d0" },
-        { title: "선용품 공급", desc: "선박 운항에 필수적인 소모품, 식자재, 부품 등을 공급합니다.", img: "1506629082955-511b1aa562c8" }, // <-- 수정됨
+        // --- 3단계 (예시): "/ship-supply.jpg" 처럼 수정하세요 ---
+        { title: "선용품 공급", desc: "선박 운항에 필수적인 소모품, 식자재, 부품 등을 공급합니다.", img: "1506629082955-511b1aa562c8" },
         { title: "호텔 숙박", desc: "선원 및 파트너를 위한 편안하고 편리한 호텔 숙박 서비스입니다.", img: "1566075582-0268601L32s" },
         { title: "의료 지원", desc: "병원 연계, 이송, 의료 서류 행정 지원을 포함한 원스톱 의료 편의 서비스입니다.", img: "1576091187-6a2069b2a09c" }
-        // 선박 유지보수 삭제됨
       ],
     },
-    // ---
     service: {
       title: "서비스",
       items: [
@@ -137,8 +128,10 @@ const translations = {
     mobile: { tel: "전화: +82-10-6430-8197" }
   },
 };
+// --- 번역 데이터 끝 ---
 
-// --- getNavItems 함수 (이전과 동일, 수정 불필요) ---
+
+// --- getNavItems 함수 (이전과 동일) ---
 const getNavItems = (lang) => {
   const t = translations[lang].nav;
   const mega = translations[lang].megaMenu;
@@ -436,7 +429,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* BUSINESS SECTION (수정됨) */}
+      {/* --- BUSINESS SECTION (수정됨) --- */}
       <section id="business" className="py-20 pt-36 md:pt-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">{t.business.title}</h2>
@@ -444,7 +437,15 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {t.business.items.map((b, i) => (
               <div key={i} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
-                <img src={`https://images.unsplash.com/photo-${b.img}?auto=format&fit=crop&w=800&q=60`} alt={b.title} className="h-48 w-full object-cover" />
+                {/* --- 수정된 이미지 로직 --- 
+                    b.img가 '/'로 시작하면 로컬 파일로, 아니면 Unsplash ID로 처리합니다.
+                */}
+                <img 
+                  src={b.img.startsWith('/') ? b.img : `https://images.unsplash.com/photo-${b.img}?auto=format&fit=crop&w=800&q=60`} 
+                  alt={b.title} 
+                  className="h-48 w-full object-cover" 
+                />
+                {/* --- */}
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2">{b.title}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">{b.desc}</p>
@@ -454,6 +455,7 @@ export default function App() {
           </div>
         </div>
       </section>
+      {/* --- */}
 
       <section id="service" className="bg-gray-50 py-20 pt-36 md:pt-20">
         <div className="max-w-6xl mx-auto px-6">
