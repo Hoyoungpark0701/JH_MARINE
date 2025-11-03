@@ -119,16 +119,14 @@ export default function App() {
   // --- 수정된 useEffect (스크롤 감지) ---
   useEffect(() => {
     const handleScroll = () => {
-      // 모바일 메뉴가 열려있으면 스크롤 감지 중단 (메가 메뉴는 스크롤 허용)
       if (isMobileMenuOpen) return; 
-
       const currentScrollY = window.scrollY;
 
-      // 스크롤 방향에 따라 헤더를 숨기거나 표시한다.
       if (currentScrollY > 100) {
         // 아래로 스크롤
         if (currentScrollY > lastScrollY) {
           setShowHeader(false);
+          setActiveMenu(null); // <-- *** 수정 사항: 헤더 숨길 때 메뉴도 닫기 ***
         } 
         // 위로 스크롤
         else {
@@ -145,7 +143,7 @@ export default function App() {
     
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY, isMobileMenuOpen]); // activeMenu 의존성 제거됨
+  }, [lastScrollY, isMobileMenuOpen]);
   // --- 스크롤 감지 useEffect 끝 ---
 
 
